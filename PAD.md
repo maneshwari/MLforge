@@ -103,9 +103,9 @@ Students and beginner ML developers face a **significant setup bottleneck** when
 - Student interviews: "I spent 6 hours on Docker, 30 min on the model"
 
 **Quantitative**:
-- 💾 GitHub: 50K+ abandoned ML repos (unmaintained last 2+ years)
-- 📊 Kaggle: 60% of competition projects lack backend/deployment
-- 📈 Bootcamp feedback: Graduates report 2-4 weeks onboarding to "normal" production project setup
+-  GitHub: 50K+ abandoned ML repos (unmaintained last 2+ years)
+-  Kaggle: 60% of competition projects lack backend/deployment
+-  Bootcamp feedback: Graduates report 2-4 weeks onboarding to "normal" production project setup
 
 ### 2.2 Target User Validation
 
@@ -438,11 +438,11 @@ Confidence level: **HIGH (8.5/10)**
 
 ## 11. Next Steps
 
-1. **Week 1**: CLI scaffolding, Gemini integration, basic template generation
-2. **Week 2**: ML pipeline templates, FastAPI/Streamlit generation, Docker support
-3. **Week 3**: Dataset intelligence, health scoring, interview question generation
-4. **Week 4**: Testing, documentation, demo preparation
-5. **Week 5**: Hackathon submission & presentation
+1. **day 1**: CLI scaffolding, Gemini integration, basic template generation
+2. **day 2**: ML pipeline templates, FastAPI/Streamlit generation, Docker support
+3. **day 3**: Dataset intelligence, health scoring, interview question generation
+4. **day 4**: Testing, documentation, demo preparation
+5. **day 5**: Hackathon submission & presentation
 
 ---
 
