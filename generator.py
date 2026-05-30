@@ -260,7 +260,7 @@ import requests
 import pandas as pd
 
 st.set_page_config(page_title="{scope["project_name"]}", layout="wide")
-st.title("🤖 {scope["project_name"]}")
+st.title("{scope["project_name"]}")
 st.caption(
     f"**{scope["project_prompt"]}** | "
     "Algorithm: **{scope["primary_algorithm"]}** | "
@@ -268,9 +268,9 @@ st.caption(
 )
 
 API = "http://localhost:8000"
-page = st.sidebar.radio("Navigation", ["🔮 Predict", "📊 Batch", "ℹ️ About"])
+page = st.sidebar.radio("Navigation", ["Predict", "Batch", "About"])
 
-if page == "🔮 Predict":
+if page == "Predict":
     st.header("Single Prediction")
     with st.form("f"):
         c1, c2 = st.columns(2)
@@ -278,7 +278,7 @@ if page == "🔮 Predict":
         f2 = c1.number_input("Feature 2", value=2.0)
         f3 = c2.number_input("Feature 3", value=3.0)
         f4 = c2.number_input("Feature 4", value=4.0)
-        go = st.form_submit_button("🔮 Predict")
+        go = st.form_submit_button("Predict")
     if go:
         try:
             r = requests.post(f"{{API}}/predict",
@@ -293,7 +293,7 @@ if page == "🔮 Predict":
         except Exception as e:
             st.warning(f"API unreachable: {{e}}\\n\\nRun: `python src/backend/main.py`")
 
-elif page == "📊 Batch":
+elif page == "Batch":
     st.header("Batch Prediction")
     f = st.file_uploader("Upload CSV", type=["csv"])
     if f:
@@ -313,7 +313,7 @@ else:
 | Preprocessing | {scope["preprocessing_steps"]} |
 """)
     st.markdown("---")
-    st.caption("Generated with **MLForge** 🚀 — ML SMITHS, OIST Bhopal")
+    st.caption("Generated with **MLForge** — ML SMITHS, OIST Bhopal")
 '''
 
 
