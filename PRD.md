@@ -208,12 +208,12 @@ Eliminate the ML project setup bottleneck by delivering production-ready project
 - F-101.7: All generated code is syntactically correct (no compilation errors)
 
 **Acceptance Criteria**:
-- ✅ Generate complete project from 10+ diverse prompts without errors
-- ✅ All generated Python code passes `pylint` check
-- ✅ All generated Java code compiles without errors
-- ✅ Backend runs `pytest` successfully with 5+ test cases
-- ✅ Frontend loads without exceptions
-- ✅ Process completes in <10 seconds
+-  Generate complete project from 10+ diverse prompts without errors
+-  All generated Python code passes `pylint` check
+-  All generated Java code compiles without errors
+-  Backend runs `pytest` successfully with 5+ test cases
+-  Frontend loads without exceptions
+-  Process completes in <10 seconds
 
 **Technical Details**:
 - Input: `mlforge generate --prompt "weather prediction model"`
@@ -237,11 +237,11 @@ Eliminate the ML project setup bottleneck by delivering production-ready project
 - F-102.7: Generate analysis report (JSON or pretty-printed)
 
 **Acceptance Criteria**:
-- ✅ Analyze 10+ diverse datasets (tabular, different sizes, different formats)
-- ✅ Correctly identify target column >80% of the time
-- ✅ Recommendations match domain expert opinion
-- ✅ Analysis completes in <5 seconds for files <1GB
-- ✅ Handle missing values, duplicates, categorical data
+-  Analyze 10+ diverse datasets (tabular, different sizes, different formats)
+-  Correctly identify target column >80% of the time
+-  Recommendations match domain expert opinion
+-  Analysis completes in <5 seconds for files <1GB
+-  Handle missing values, duplicates, categorical data
 
 **Technical Details**:
 - Input: CSV file (path)
@@ -264,11 +264,11 @@ Eliminate the ML project setup bottleneck by delivering production-ready project
 - F-103.6: Templates override default algorithms/libraries with domain-specific choices
 
 **Acceptance Criteria**:
-- ✅ Each template generates >95% valid code
-- ✅ Healthcare template follows HIPAA principles (no PII in logs)
-- ✅ FinTech template includes audit logging for compliance
-- ✅ AgriTech template includes seasonal time-series preprocessing
-- ✅ Templates are documented with domain-specific explanations
+-  Each template generates >95% valid code
+-  Healthcare template follows HIPAA principles (no PII in logs)
+-  FinTech template includes audit logging for compliance
+-  AgriTech template includes seasonal time-series preprocessing
+-  Templates are documented with domain-specific explanations
 
 **Technical Details**:
 - Implementation: Mustache templates in `/resources/templates/healthcare/`, `/templates/fintech/`, etc.
@@ -291,11 +291,11 @@ Eliminate the ML project setup bottleneck by delivering production-ready project
 - F-104.7: Score persists in project (health.json)
 
 **Acceptance Criteria**:
-- ✅ Health scores are reproducible (same project → same score)
-- ✅ Scores match manual expert review >80% of the time
-- ✅ Recommendations are actionable (not vague)
-- ✅ Score calculation completes in <5 seconds
-- ✅ Report is human-readable and actionable
+-  Health scores are reproducible (same project → same score)
+-  Scores match manual expert review >80% of the time
+-  Recommendations are actionable (not vague)
+-  Score calculation completes in <5 seconds
+-  Report is human-readable and actionable
 
 **Technical Details**:
 - Input: Generated project directory
@@ -322,11 +322,11 @@ Eliminate the ML project setup bottleneck by delivering production-ready project
 - F-105.5: Output as markdown file with answers/rubric
 
 **Acceptance Criteria**:
-- ✅ Generate 10+ relevant questions from project
-- ✅ Questions match project algorithms and structure
-- ✅ Questions are appropriately difficult (not too easy, not too hard)
-- ✅ Domain-specific questions appear for domain templates
-- ✅ Output is in markdown with clear formatting
+-  Generate 10+ relevant questions from project
+-  Questions match project algorithms and structure
+-  Questions are appropriately difficult (not too easy, not too hard)
+-  Domain-specific questions appear for domain templates
+-  Output is in markdown with clear formatting
 
 **Technical Details**:
 - Input: Project directory
@@ -348,11 +348,11 @@ Eliminate the ML project setup bottleneck by delivering production-ready project
 - F-106.5: Suitable for 12-24 hour hackathon timelines
 
 **Acceptance Criteria**:
-- ✅ Hackathon mode generates in <5 seconds (vs. standard 10 sec)
-- ✅ Generated backend runs without modification
-- ✅ Frontend loads without errors
-- ✅ Docker builds successfully
-- ✅ Result is deployment-ready
+-  Hackathon mode generates in <5 seconds (vs. standard 10 sec)
+-  Generated backend runs without modification
+-  Frontend loads without errors
+-  Docker builds successfully
+-  Result is deployment-ready
 
 **Technical Details**:
 - Implementation: Separate template set with minimal but functional scaffolding
@@ -374,10 +374,10 @@ Eliminate the ML project setup bottleneck by delivering production-ready project
 - F-107.6: Optional: Generate "ARCHITECTURE.md" explaining design decisions
 
 **Acceptance Criteria**:
-- ✅ Generated README is >500 words, project-specific
-- ✅ Code comments explain *why*, not just *what*
-- ✅ ARCHITECTURE.md explains: problem type, algorithm choice, data pipeline, API design
-- ✅ User feedback: >70% find explanations helpful
+-  Generated README is >500 words, project-specific
+-  Code comments explain *why*, not just *what*
+-  ARCHITECTURE.md explains: problem type, algorithm choice, data pipeline, API design
+-  User feedback: >70% find explanations helpful
 
 **Technical Details**:
 - Implementation: Enhanced templates with comment placeholders filled by Gemini API
@@ -580,12 +580,12 @@ templates/
 ```bash
 $ mlforge generate --prompt "Build a customer churn prediction model"
 
-🔍 Analyzing your project...
+  Analyzing your project...
    Problem: Classification
    Algorithm: XGBoost
    ✓ Analysis complete (1.2s)
 
-📦 Generating project structure...
+  Generating project structure...
    ✓ Creating directories
    ✓ Generating ML pipeline
    ✓ Generating FastAPI backend
@@ -593,26 +593,26 @@ $ mlforge generate --prompt "Build a customer churn prediction model"
    ✓ Generating Docker config
    ✓ Generation complete (3.4s)
 
-📝 Generating documentation...
+  Generating documentation...
    ✓ README.md
    ✓ ARCHITECTURE.md
    ✓ requirements.txt
    ✓ Documentation complete (1.1s)
 
-📊 Project Health Score:
+  Project Health Score:
    Scalability:     7/10
    Maintainability: 9/10
    Deployability:   8/10
 
-✅ Project created in: ./churn_prediction_model/
-🚀 Get started: cd churn_prediction_model && python -m pip install -r requirements.txt
+  Project created in: ./churn_prediction_model/
+  Get started: cd churn_prediction_model && python -m pip install -r requirements.txt
 ```
 
 #### Variant: Dataset Intelligence
 ```bash
 $ mlforge generate --prompt "Churn prediction" --dataset ./customer_data.csv
 
-🔍 Analyzing your project and dataset...
+  Analyzing your project and dataset...
    Dataset size: 50,000 rows × 25 columns
    Target column: churn_status (binary classification)
    ✓ Data analysis complete (2.1s)
@@ -624,7 +624,7 @@ $ mlforge generate --prompt "Churn prediction" --dataset ./customer_data.csv
 ```bash
 $ mlforge generate --template fintech --prompt "Fraud detection in transactions"
 
-🔍 Using FinTech template...
+  Using FinTech template...
    Template: Fraud Detection (Risk Modeling, Compliance Logging)
    ✓ Template loaded
 
@@ -637,28 +637,28 @@ $ mlforge generate --template fintech --prompt "Fraud detection in transactions"
 ```bash
 $ mlforge generate --prompt "weather model"
 
-❌ Error: GEMINI_API_KEY environment variable not set
-📖 Fix: export GEMINI_API_KEY=your-key-here
-📚 Get API key: https://aistudio.google.com/
+  Error: GEMINI_API_KEY environment variable not set
+  Fix: export GEMINI_API_KEY=your-key-here
+  Get API key: https://aistudio.google.com/
 ```
 
 **Scenario 2: Invalid CSV**
 ```bash
 $ mlforge generate --dataset ./bad_data.csv
 
-❌ Error: Could not parse CSV file
+  Error: Could not parse CSV file
    File format: UTF-8 text, 1 line, missing headers
-📖 Expected: CSV with headers in first row
-🔧 Fix: Check file encoding, add headers
+  Expected: CSV with headers in first row
+   Fix: Check file encoding, add headers
 ```
 
 **Scenario 3: Gemini API Timeout**
 ```bash
 $ mlforge generate --prompt "complex ML model"
 
-⏱️  Waiting for AI analysis... (max 15s)
-⚠️  API timeout. Using default configuration.
-ℹ️  Tip: Shorter prompts analyze faster. Example:
+   Waiting for AI analysis... (max 15s)
+   API timeout. Using default configuration.
+   Tip: Shorter prompts analyze faster. Example:
    "Weather prediction model" instead of "I want to build..."
 ```
 
@@ -709,14 +709,14 @@ EXAMPLES:
 **Status**: Development  
 
 **Deliverables**:
-- ✅ Core CLI with argument parsing
-- ✅ Gemini API integration for analysis
-- ✅ Basic project generation (structure, ML pipeline, backend, frontend)
-- ✅ Docker support
-- ✅ README generation
-- ✅ Project health scoring (basic)
-- ✅ Hackathon mode
-- ✅ GitHub repository with documentation
+-  Core CLI with argument parsing
+-  Gemini API integration for analysis
+-  Basic project generation (structure, ML pipeline, backend, frontend)
+-  Docker support
+-  README generation
+-  Project health scoring (basic)
+-  Hackathon mode
+-  GitHub repository with documentation
 
 **Features**: F-101, F-102, F-103 (partial), F-106
 
@@ -731,12 +731,12 @@ EXAMPLES:
 **Focus**: User feedback, stability, educational value  
 
 **Deliverables**:
-- ✅ Interview question generation (F-105)
-- ✅ Enhanced domain templates (F-103 complete)
-- ✅ Improved health scoring (F-104 full)
-- ✅ Better error handling and fallbacks
-- ✅ VSCode extension (basic)
-- ✅ Community onboarding (tutorials, Discord)
+-  Interview question generation (F-105)
+-  Enhanced domain templates (F-103 complete)
+-  Improved health scoring (F-104 full)
+-  Better error handling and fallbacks
+-  VSCode extension (basic)
+-  Community onboarding (tutorials, Discord)
 
 **Features**: F-104 (full), F-105, F-107 (enhanced)
 
@@ -751,13 +751,13 @@ EXAMPLES:
 **Focus**: SaaS readiness, advanced features  
 
 **Deliverables**:
-- ✅ Web dashboard (alternative to CLI)
-- ✅ User authentication & project management
-- ✅ Freemium model (5 projects/month free, unlimited ₹500/month)
-- ✅ API for programmatic access
-- ✅ Advanced LLM models (Claude, Llama fallbacks)
-- ✅ Model marketplace (pre-trained models)
-- ✅ Collaborative workspaces
+-  Web dashboard (alternative to CLI)
+-  User authentication & project management
+-  Freemium model (5 projects/month free, unlimited ₹500/month)
+-  API for programmatic access
+-  Advanced LLM models (Claude, Llama fallbacks)
+-  Model marketplace (pre-trained models)
+-  Collaborative workspaces
 
 **Features**: All previous + advanced model selection, marketplace
 
@@ -772,12 +772,12 @@ EXAMPLES:
 **Focus**: Enterprise features, compliance  
 
 **Deliverables**:
-- ✅ HIPAA compliance certification (healthcare)
-- ✅ SOC2 Type II (security)
-- ✅ Enterprise SSO integration
-- ✅ On-premise deployment option
-- ✅ Custom domain templates for enterprises
-- ✅ Dedicated support
+-  HIPAA compliance certification (healthcare)
+-  SOC2 Type II (security)
+-  Enterprise SSO integration
+-  On-premise deployment option
+-  Custom domain templates for enterprises
+-  Dedicated support
 
 **Target**: Enterprise buyers (Fortune 500 companies, banks, healthcare providers)
 
@@ -823,37 +823,37 @@ EXAMPLES:
 ### 9.1 MVP Launch Criteria (May 31, 2026)
 
 **Functional Completeness**:
-- ✅ All CRITICAL features (F-101, F-102, F-103, F-106) fully implemented
-- ✅ Core HIGH features (F-104 basic version) working
-- ✅ Zero critical bugs (generation failures, runtime errors)
-- ✅ <5 high-severity bugs found in testing
+-  All CRITICAL features (F-101, F-102, F-103, F-106) fully implemented
+-  Core HIGH features (F-104 basic version) working
+-  Zero critical bugs (generation failures, runtime errors)
+-  <5 high-severity bugs found in testing
 
 **Quality Gates**:
-- ✅ 95%+ generation success rate
-- ✅ Generated code passes linting (pylint >8/10)
-- ✅ All generated backends run with `python -m pytest` → pass >80% tests
-- ✅ All frontends load without JavaScript errors
-- ✅ Performance: generation <10 sec, analysis <5 sec
+-  95%+ generation success rate
+-  Generated code passes linting (pylint >8/10)
+-  All generated backends run with `python -m pytest` → pass >80% tests
+-  All frontends load without JavaScript errors
+-  Performance: generation <10 sec, analysis <5 sec
 
 **Documentation**:
-- ✅ README.md (comprehensive)
-- ✅ GETTING_STARTED.md (user-friendly)
-- ✅ INSTALLATION.md (cross-platform)
-- ✅ API.md (CLI command reference)
-- ✅ ARCHITECTURE.md (technical deep-dive)
+-  README.md (comprehensive)
+-  GETTING_STARTED.md (user-friendly)
+-  INSTALLATION.md (cross-platform)
+-  API.md (CLI command reference)
+-  ARCHITECTURE.md (technical deep-dive)
 
 **Demo Readiness**:
-- ✅ 3-minute demo video showing full workflow
-- ✅ 5 diverse example projects pre-generated
-- ✅ Slides with problem statement, solution, results
-- ✅ Pitch deck for hackathon judges
+-  3-minute demo video showing full workflow
+-  5 diverse example projects pre-generated
+-  Slides with problem statement, solution, results
+-  Pitch deck for hackathon judges
 
 **Community Readiness**:
-- ✅ GitHub repository with clear README
-- ✅ Issue templates for bug reports, feature requests
-- ✅ Contributing guidelines
-- ✅ Code of conduct
-- ✅ Roadmap published
+-  GitHub repository with clear README
+-  Issue templates for bug reports, feature requests
+-  Contributing guidelines
+-  Code of conduct
+-  Roadmap published
 
 ### 9.2 Launch Decision Criteria
 
@@ -1111,7 +1111,7 @@ async def predict(data: WeatherInput):
 ## 14. Sign-Off
 
 **Product Owner**: Prachi Gupta (ML SMITHS)  
-**Status**: ✅ Ready for Development  
+**Status**: Ready for Development  
 **Approval Date**: May 30, 2026  
 **Target Launch**: May 31, 2026 (Hackathon)  
 
