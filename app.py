@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 
 st.set_page_config(page_title="Fraud Detection For Bank Transactions", layout="wide")
-st.title("🤖 Fraud Detection For Bank Transactions")
+st.title(" Fraud Detection For Bank Transactions")
 st.caption(
     f"**fraud detection for bank transactions** | "
     "Algorithm: **RandomForest** | "
@@ -11,9 +11,9 @@ st.caption(
 )
 
 API = "http://localhost:8000"
-page = st.sidebar.radio("Navigation", ["🔮 Predict", "📊 Batch", "ℹ️ About"])
+page = st.sidebar.radio("Navigation", [" Predict", "Batch", "About"])
 
-if page == "🔮 Predict":
+if page == "Predict":
     st.header("Single Prediction")
     with st.form("f"):
         c1, c2 = st.columns(2)
@@ -21,7 +21,7 @@ if page == "🔮 Predict":
         f2 = c1.number_input("Feature 2", value=2.0)
         f3 = c2.number_input("Feature 3", value=3.0)
         f4 = c2.number_input("Feature 4", value=4.0)
-        go = st.form_submit_button("🔮 Predict")
+        go = st.form_submit_button("Predict")
     if go:
         try:
             r = requests.post(f"{API}/predict",
@@ -48,7 +48,6 @@ else:
     st.header("About")
     st.markdown(f"""
 | Field | Value |
-|---|---|
 | Problem | fraud detection for bank transactions |
 | Type | Classification |
 | Algorithm | RandomForest |
@@ -56,4 +55,4 @@ else:
 | Preprocessing | StandardScaler, LabelEncoder |
 """)
     st.markdown("---")
-    st.caption("Generated with **MLForge** 🚀 — ML SMITHS, OIST Bhopal")
+    st.caption("Generated with **MLForge** — ML SMITHS, OIST Bhopal")
