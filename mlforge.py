@@ -60,7 +60,7 @@ def cmd_generate(args):
     print()
 
     print("═" * 62)
-    print(" ✅  Project ready! Run these commands to get started:")
+    print("Project ready! Run these commands to get started:")
     print()
     print(f"   cd {project_path}")
     print( "   pip install -r requirements.txt")
