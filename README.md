@@ -19,13 +19,13 @@ This friction causes projects to be delayed, abandoned, or never completed—des
 
 **MLForge** is an AI-powered CLI tool that generates **end-to-end ML projects** from a simple text prompt. You describe your project idea, and MLForge auto-generates:
 
-- ✅ Industry-standard project structure
-- ✅ ML pipeline with appropriate models
-- ✅ Backend setup (FastAPI)
-- ✅ Frontend interface (Streamlit)
-- ✅ Docker configuration
-- ✅ README and documentation
-- ✅ Git initialization
+-  Industry-standard project structure
+-  ML pipeline with appropriate models
+-  Backend setup (FastAPI)
+-  Frontend interface (Streamlit)
+-  Docker configuration
+-  README and documentation
+-  Git initialization
 
 ## Key Differentiators
 
