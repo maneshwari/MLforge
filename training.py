@@ -61,4 +61,4 @@ if __name__ == "__main__":
     trainer = ModelTrainer()
     trainer.train(X, y)
     trainer.save()
-    print("Done! ✓")
+    print("Done!")
