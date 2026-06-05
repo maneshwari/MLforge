@@ -1,0 +1,203 @@
+"""
+MLForge Health Scorer.
+
+Analyzes a generated project and scores it across three dimensions:
+  - Scalability    (0-10): Can it handle larger data / more traffic?
+  - Maintainability (0-10): Is the code clean, documented, modular?
+  - Deployability   (0-10): Is it Docker-ready, secrets-safe, CI-ready?
+
+Design: rule-based checks on file existence and content.
+Future: AST analysis for deeper code quality checks.
+"""
+
+import os
+import json
+from pathlib import Path
+
+
+def score_project(project_path: str) -> dict:
+    """
+    Score a generated project directory.
+
+    Returns:
+        {
+            "scalability":     int (0-10),
+            "maintainability": int (0-10),
+            "deployability":   int (0-10),
+            "recommendations": [str, ...],
+            "details":         {dimension: [check_result, ...]}
+        }
+    """
+    root = Path(project_path)
+    recommendations = []
+    details = {}
+
+    scalability, s_details, s_recs = _score_scalability(root)
+    maintainability, m_details, m_recs = _score_maintainability(root)
+    deployability, d_details, d_recs = _score_deployability(root)
+
+    recommendations = s_recs + m_recs + d_recs
+    details = {
+        "scalability": s_details,
+        "maintainability": m_details,
+        "deployability": d_details,
+    }
+
+    result = {
+        "scalability":     scalability,
+        "maintainability": maintainability,
+        "deployability":   deployability,
+        "recommendations": recommendations,
+        "details":         details,
+    }
+
+    # Write health.json into the project
+    health_path = root / "health.json"
+    health_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+
+    return result
+
+
+# ── Dimension scorers ──────────────────────────────────────────────────────────
+
+def _score_scalability(root: Path) -> tuple[int, list, list]:
+    checks = []
+    recs = []
+    score = 5  # baseline
+
+    # Batch endpoint: can handle bulk predictions efficiently
+    backend = root / "src/backend/main.py"
+    if backend.exists():
+        content = backend.read_text()
+        if "/batch" in content:
+            score += 1
+            checks.append("✓ Batch prediction endpoint present")
+        else:
+            recs.append("Add a /batch endpoint for bulk prediction (avoids loop overhead)")
+            checks.append("✗ No batch prediction endpoint")
+
+    # Docker compose: can scale horizontally
+    if (root / "docker-compose.yml").exists():
+        score += 1
+        checks.append("✓ docker-compose.yml present (horizontal scaling ready)")
+    else:
+        recs.append("Add docker-compose.yml for easy multi-container deployment")
+
+    # Data directory separation (raw vs processed)
+    if (root / "data/raw").exists() and (root / "data/processed").exists():
+        score += 1
+        checks.append("✓ data/raw and data/processed separation")
+    else:
+        recs.append("Separate raw and processed data directories for pipeline clarity")
+
+    # Preprocessor is saved separately (can be versioned)
+    training = root / "src/ml_pipeline/training.py"
+    if training.exists() and "preprocessor.joblib" in training.read_text():
+        score += 1
+        checks.append("✓ Preprocessor serialized separately (versionable)")
+
+    score = min(score, 10)
+    return score, checks, recs
+
+
+def _score_maintainability(root: Path) -> tuple[int, list, list]:
+    checks = []
+    recs = []
+    score = 4  # baseline
+
+    # README exists and is non-trivial
+    readme = root / "README.md"
+    if readme.exists():
+        content = readme.read_text()
+        if len(content) > 300:
+            score += 2
+            checks.append("✓ README.md is comprehensive (>300 chars)")
+        else:
+            score += 1
+            checks.append("⚠ README.md exists but is brief")
+            recs.append("Expand README with API examples and architecture notes")
+    else:
+        recs.append("Add a README.md — it's the first thing contributors see")
+        checks.append("✗ No README.md")
+
+    # Tests present
+    tests_dir = root / "tests"
+    if tests_dir.exists() and any(tests_dir.glob("test_*.py")):
+        score += 2
+        checks.append("✓ Test files present")
+    else:
+        recs.append("Add pytest tests — aim for >80% coverage on core ML logic")
+        checks.append("✗ No test files found")
+
+    # Docstrings in main files
+    for fpath in [
+        root / "src/ml_pipeline/preprocessing.py",
+        root / "src/backend/main.py",
+    ]:
+        if fpath.exists() and '"""' in fpath.read_text():
+            score += 1
+            checks.append(f"✓ {fpath.name} has docstrings")
+            break
+
+    # ARCHITECTURE.md
+    if (root / "ARCHITECTURE.md").exists():
+        score += 1
+        checks.append("✓ ARCHITECTURE.md explains design decisions")
+    else:
+        recs.append("Add ARCHITECTURE.md to explain why certain algorithms/patterns were chosen")
+
+    score = min(score, 10)
+    return score, checks, recs
+
+
+def _score_deployability(root: Path) -> tuple[int, list, list]:
+    checks = []
+    recs = []
+    score = 3  # baseline
+
+    # Dockerfile
+    if (root / "Dockerfile").exists():
+        score += 2
+        checks.append("✓ Dockerfile present")
+    else:
+        recs.append("Add a Dockerfile for containerized deployment")
+        checks.append("✗ No Dockerfile")
+
+    # .env.example (secrets management)
+    if (root / ".env.example").exists():
+        score += 1
+        checks.append("✓ .env.example present (secrets pattern)")
+    else:
+        recs.append("Add .env.example so developers know what env vars to set")
+
+    # .gitignore with .env
+    gitignore = root / ".gitignore"
+    if gitignore.exists() and ".env" in gitignore.read_text():
+        score += 1
+        checks.append("✓ .gitignore excludes .env (secrets won't leak)")
+    else:
+        recs.append("Add .env to .gitignore to prevent accidental secret commits")
+
+    # requirements.txt
+    if (root / "requirements.txt").exists():
+        score += 1
+        checks.append("✓ requirements.txt present")
+    else:
+        recs.append("Add requirements.txt for reproducible environments")
+
+    # CI/CD
+    ci = root / ".github/workflows/ci.yml"
+    if ci.exists():
+        score += 1
+        checks.append("✓ GitHub Actions CI workflow present")
+    else:
+        recs.append("Add .github/workflows/ci.yml for automated testing on push")
+
+    # Health endpoint in backend
+    backend = root / "src/backend/main.py"
+    if backend.exists() and "/health" in backend.read_text():
+        score += 1
+        checks.append("✓ /health endpoint for load balancer probes")
+
+    score = min(score, 10)
+    return score, checks, recs
